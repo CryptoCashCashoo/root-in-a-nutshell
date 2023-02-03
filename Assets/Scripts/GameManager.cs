@@ -8,20 +8,15 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Get;
+
+    void Awake()
+    {
+        Get = this;
+    }
 
     public void StartGame()
     {
 
-    }
-
-    
-    void Awake()
-    {
-        
-    }
-
-    void Update()
-    {
-        
     }
 }

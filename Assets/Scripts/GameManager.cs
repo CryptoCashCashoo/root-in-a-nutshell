@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         Get = this;
+        Debug.Log(SystemInfo.graphicsDeviceType);
     }
 
     public void StartGame()

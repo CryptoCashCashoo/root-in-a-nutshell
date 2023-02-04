@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
 using Cinemachine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -32,5 +33,10 @@ public class GameManager : MonoBehaviour
         _cmBrain.ActiveVirtualCamera.LookAt = nut.transform;
         _cmBrain.transform.position = nut.transform.position + 2 * Vector3.forward;
 
+    }
+
+    public void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

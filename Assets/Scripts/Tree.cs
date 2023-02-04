@@ -12,11 +12,11 @@ public class Tree : MonoBehaviour
     [SerializeField] Material _goodMaterial;
     [SerializeField] Material _badMaterial;
 
-    public float _ROW_HEIGHT = 2f;
+    public float _ROW_HEIGHT = 5f;
 
     [Header("DEBUG INFO")]
     GameObject _piece;
-    public float _fraction;
+    public int _fraction;
     public int _numberOfRows;
 
 
@@ -40,9 +40,17 @@ public class Tree : MonoBehaviour
 
     private void _CreateRow(int i)
     {
-
-
-
+        int elapsed = Random.Range(0, _fraction);
+        for (int k = 0; k < _fraction; k++)
+        {
+            if (k == elapsed)
+                continue;
+            GameObject obj = Instantiate(_piece, new Vector3(0, i * _ROW_HEIGHT, 0), Quaternion.Euler(0, k * 360 / _fraction, 0), this.transform);
+            MeshRenderer var = obj.GetComponentInChildren<MeshRenderer>();
+            var.material = _goodMaterial;
+            if (Random.Range(0, 100) <= 10)
+                var.material = _badMaterial;
+        }
     }
 
 }

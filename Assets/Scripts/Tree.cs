@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 
@@ -21,6 +22,14 @@ public class Tree : MonoBehaviour
 
 
     public float height => _treeScaler.transform.localScale.y;
+
+    UnityEvent _onGameOver;
+
+    public void Awake()
+    {
+        _onGameOver = new UnityEvent();
+        _onGameOver.AddListener(() => { GameManager.Get.GameOver(); });
+    }
 
 
     public void Create(int numberOfRows, int fraction, GameObject piece)
@@ -49,7 +58,10 @@ public class Tree : MonoBehaviour
             MeshRenderer var = obj.GetComponentInChildren<MeshRenderer>();
             var.material = _goodMaterial;
             if (Random.Range(0, 100) <= 10)
+            {
                 var.material = _badMaterial;
+                obj.GetComponentInChildren<PizzaSlide>()._onCollision = _onGameOver;
+            }
         }
     }
 

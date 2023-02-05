@@ -93,9 +93,10 @@ GameObject:
   - component: {fileID: 8101110331556978935}
   - component: {fileID: 8639687019369203458}
   - component: {fileID: 8639687019369203459}
+  - component: {fileID: -8419841212074171199}
   m_Layer: 0
   m_Name: Nut
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,3 +145,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.35
   m_Center: {x: 0, y: 0.36, z: 0}
+--- !u!114 &-8419841212074171199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8874127837741922893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d264df42c4cd7cb9cad98807e760de37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fixX: 1
+  _fixY: 0
+  _fixZ: 1

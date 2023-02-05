@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using DG.Tweening;
@@ -14,6 +16,7 @@ public class Tree : MonoBehaviour
     GameObject _piece;
     public int _fraction;
     public int _numberOfRows;
+    public float _badSparsity;
 
     public float height => _treeScaler.transform.localScale.y;
 
@@ -39,11 +42,12 @@ public class Tree : MonoBehaviour
     }
 
 
-    public void Create(int numberOfRows, int fraction, GameObject piece)
+    public void Create(int numberOfRows, float badSparsity, int fraction, GameObject piece)
     {
         _piece = piece;
         _fraction = fraction;
         _numberOfRows = numberOfRows;
+        _badSparsity = badSparsity;
         _Create();
     }
 
@@ -54,27 +58,57 @@ public class Tree : MonoBehaviour
             _CreateRow(i);
     }
 
-    private void _CreateRow(int i)
+    private void _CreateRow(int row)
     {
-        int elapsed = Random.Range(0, _fraction);
+        bool isFullBad = (Mathf.Abs(_badSparsity - 1f) < Mathf.Epsilon);
+        List<int> elapsed = isFullBad ? getNRandomNumbers(5, 0, _fraction) : getNRandomNumbers(1, 0, _fraction);
+
         for (int k = 0; k < _fraction; k++)
         {
-            if (k == elapsed)
+            if (elapsed.Contains(k))
                 continue;
-            GameObject obj = Instantiate(_piece, new Vector3(0, i * _ROW_HEIGHT, 0), Quaternion.Euler(0, k * 360 / _fraction, 0), this.transform);
+            GameObject obj = Instantiate(_piece, new Vector3(0, row * _ROW_HEIGHT, 0), Quaternion.Euler(0, k * 360 / _fraction, 0), this.transform);
             MeshRenderer var = obj.GetComponentInChildren<MeshRenderer>();
 
-            if (Random.Range(0, 100) <= 10)
-            {
-                var.material = _badMaterial;
-                obj.GetComponentInChildren<PizzaSlide>()._onCollision = _onBadPieceCollision;
-            }
-            else
+            // first row
+            if (row == _numberOfRows - 1)
             {
                 var.material = _goodMaterial;
                 obj.GetComponentInChildren<PizzaSlide>()._onCollision = _onGoodPieceCollision;
             }
+            // Not all are bad
+            else if (isFullBad == false)
+            {
+                if (Random.Range(0, 1f) <= _badSparsity)
+                {
+                    var.material = _badMaterial;
+                    obj.GetComponentInChildren<PizzaSlide>()._onCollision = _onBadPieceCollision;
+                }
+                else
+                {
+                    var.material = _goodMaterial;
+                    obj.GetComponentInChildren<PizzaSlide>()._onCollision = _onGoodPieceCollision;
+                }
+            }
+            // All are bad
+            else if (isFullBad)
+            {
+                var.material = _badMaterial;
+                obj.GetComponentInChildren<PizzaSlide>()._onCollision = _onBadPieceCollision;
+            }
         }
+    }
+
+    List<int> getNRandomNumbers(int N, int from, int toExclusive)
+    {
+        var random = new System.Random();
+        HashSet<int> returned = new HashSet<int>();
+        if (N > (toExclusive - from))
+            return returned.ToList();
+
+        while (returned.Count < N)
+            returned.Add(random.Next(from, toExclusive));
+        return returned.ToList();
     }
 
 }

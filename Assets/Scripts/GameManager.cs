@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour
 
     bool _isPlaying = false;
 
+
+    int _level = 1;
+
     public Action<float> _onChangeScore;
     public Action<string> _onChangeLevelName;
 
@@ -41,8 +44,6 @@ public class GameManager : MonoBehaviour
         Get = this;
         _tc = GameObject.FindObjectOfType<TreeComposer>();
         _cmBrain = Camera.main.GetComponent<Cinemachine.CinemachineBrain>();
-
-
     }
 
     public void StartGame()
@@ -50,8 +51,16 @@ public class GameManager : MonoBehaviour
         if (_onChangeLevelName != null)
             _onChangeLevelName.Invoke(GetLevelName());
 
-        _currentTree = _tc.Create(_rows, 10);
+        if (_currentTree != null)
+            Destroy(_currentTree.gameObject);
+        _currentTree = _tc.Create(_level);
+
+        if (_currentNut != null)
+            Destroy(_currentNut.gameObject);
         _currentNut = Instantiate(_nutPrefab, new Vector3(0, _currentTree.height, 3.2f), Quaternion.identity);
+
+        if (_currentNutella != null)
+            Destroy(_currentNutella.gameObject);
         _currentNutella = Instantiate(_nutellaPrefab, new Vector3(0, -5f, 3.2f), Quaternion.identity);
 
         FocusOnNut();
@@ -78,10 +87,7 @@ public class GameManager : MonoBehaviour
         return _score;
     }
 
-    public string GetLevelName()
-    {
-        return "Level 1";
-    }
+    public string GetLevelName() { return $"Level {_level}"; }
 
     public void RestartScene()
     {
@@ -110,18 +116,12 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel()
     {
-        // increment difficulty by 1 point or something
-        Destroy(_currentNut.gameObject);
-        Destroy(_currentTree.gameObject);
-        Destroy(_currentNutella.gameObject);
+        _level++;
         StartGame();
     }
 
     public void ReTryLevel()
     {
-        Destroy(_currentNut.gameObject);
-        Destroy(_currentTree.gameObject);
-        Destroy(_currentNutella.gameObject);
         StartGame();
     }
 

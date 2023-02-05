@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.57499427, g: 0.7514675, b: 0.77992654, a: 1}
+  m_IndirectSpecularColor: {r: 0.57485825, g: 0.75243914, b: 0.7846141, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3985,7 +3985,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 0.13800049, z: 3.5600004}
+  m_FollowOffset: {x: 0, y: 1.5, z: 3.5600004}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -4014,10 +4014,10 @@ MonoBehaviour:
   m_VerticalDamping: 0.5
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_DeadZoneWidth: 0
-  m_DeadZoneHeight: 0
-  m_SoftZoneWidth: 0.8
-  m_SoftZoneHeight: 0.8
+  m_DeadZoneWidth: 0.01
+  m_DeadZoneHeight: 0.4
+  m_SoftZoneWidth: 0.7921876
+  m_SoftZoneHeight: 0.72499996
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
@@ -4255,7 +4255,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 87.9
+    FieldOfView: 90
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -4279,14 +4279,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 814196371}
-  m_LocalRotation: {x: -0, y: 0.60281676, z: 0.79787964, w: 1e-45}
-  m_LocalPosition: {x: 1.37, y: 68.8, z: 13.2}
+  m_LocalRotation: {x: -0.0000000084856975, y: 0.8735032, z: 0.48681843, w: -0.0000000052084315}
+  m_LocalPosition: {x: 0, y: 45.8, z: -0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 795525169}
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -105.856, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: -58.263, y: 180, z: 0}
 --- !u!1001 &822827725
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4561,7 +4561,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &852035808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9975,7 +9975,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh26924
+  m_Name: pb_Mesh23154
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -10162,13 +10162,13 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.8
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -10219,13 +10219,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1899378627}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.78158337, y: -0.39645886, z: 0.19816373, w: 0.43895218}
+  m_LocalPosition: {x: 0, y: 7.29, z: 1.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 57.488, y: -175.915, z: -123.966}
 --- !u!1001 &1906090338
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10938,7 +10938,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 87.9
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -10963,8 +10963,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2018719811}
-  m_LocalRotation: {x: 0, y: 0.60281676, z: 0.79787964, w: 1e-45}
-  m_LocalPosition: {x: 1.37, y: 68.8, z: 13.2}
+  m_LocalRotation: {x: -0.0000000084856975, y: 0.8735032, z: 0.48681843, w: -0.0000000052084315}
+  m_LocalPosition: {x: 0, y: 45.8, z: -0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -11353,7 +11353,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -11382,7 +11382,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 10, w: 0}
+  m_margin: {x: 10, y: 0, z: 10, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

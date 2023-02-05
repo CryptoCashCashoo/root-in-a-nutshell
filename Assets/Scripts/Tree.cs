@@ -1,11 +1,6 @@
-using System.Linq;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.Events;
-using UnityEngine.UI;
-
+using DG.Tweening;
 
 public class Tree : MonoBehaviour
 {
@@ -20,15 +15,27 @@ public class Tree : MonoBehaviour
     public int _fraction;
     public int _numberOfRows;
 
-
     public float height => _treeScaler.transform.localScale.y;
 
-    UnityEvent _onGameOver;
+    UnityEvent<(GameObject player, GameObject piece)> _onBadPieceCollision;
+    UnityEvent<(GameObject player, GameObject piece)> _onGoodPieceCollision;
 
     public void Awake()
     {
-        _onGameOver = new UnityEvent();
-        _onGameOver.AddListener(() => { GameManager.Get.GameOver(); });
+        _onBadPieceCollision = new UnityEvent<(GameObject player, GameObject piece)>();
+        _onBadPieceCollision.AddListener((arg) => { GameManager.Get.GameOver(); });
+        _onBadPieceCollision.AddListener(Bounce);
+
+        _onGoodPieceCollision = new UnityEvent<(GameObject player, GameObject piece)>();
+        _onGoodPieceCollision.AddListener(Bounce);
+    }
+
+    void Bounce((GameObject player, GameObject piece) arg)
+    {
+        arg.player.transform.DOPunchScale(transform.up.normalized / 3f, 0.3f, 1, 1)
+            .SetRelative(true)
+            .SetLoops(1, LoopType.Yoyo)
+            .OnComplete(() => { arg.player.transform.localScale = Vector3.one; });
     }
 
 
@@ -56,11 +63,16 @@ public class Tree : MonoBehaviour
                 continue;
             GameObject obj = Instantiate(_piece, new Vector3(0, i * _ROW_HEIGHT, 0), Quaternion.Euler(0, k * 360 / _fraction, 0), this.transform);
             MeshRenderer var = obj.GetComponentInChildren<MeshRenderer>();
-            var.material = _goodMaterial;
+
             if (Random.Range(0, 100) <= 10)
             {
                 var.material = _badMaterial;
-                obj.GetComponentInChildren<PizzaSlide>()._onCollision = _onGameOver;
+                obj.GetComponentInChildren<PizzaSlide>()._onCollision = _onBadPieceCollision;
+            }
+            else
+            {
+                var.material = _goodMaterial;
+                obj.GetComponentInChildren<PizzaSlide>()._onCollision = _onGoodPieceCollision;
             }
         }
     }

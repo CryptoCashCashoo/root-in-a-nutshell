@@ -18,10 +18,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _nutellaPrefab;
 
     TreeComposer _tc;
-    Cinemachine.CinemachineBrain _cmBrain;
+    CinemachineBrain _cmBrain;
+    [SerializeField] CinemachineVirtualCamera _nutCam;
+    [SerializeField] CinemachineVirtualCamera _nutellaCam;
+
 
     Tree _currentTree;
     GameObject _currentNut;
+    GameObject _currentNutella;
+
     float _score;
 
     bool _isPlaying = false;
@@ -36,7 +41,8 @@ public class GameManager : MonoBehaviour
         Get = this;
         _tc = GameObject.FindObjectOfType<TreeComposer>();
         _cmBrain = Camera.main.GetComponent<Cinemachine.CinemachineBrain>();
-        Instantiate(_nutellaPrefab, new Vector3(0, -5f, 3.2f), Quaternion.identity);
+
+
     }
 
     public void StartGame()
@@ -46,10 +52,9 @@ public class GameManager : MonoBehaviour
 
         _currentTree = _tc.Create(_rows, 10);
         _currentNut = Instantiate(_nutPrefab, new Vector3(0, _currentTree.height, 3.2f), Quaternion.identity);
+        _currentNutella = Instantiate(_nutellaPrefab, new Vector3(0, -5f, 3.2f), Quaternion.identity);
 
-        _cmBrain.ActiveVirtualCamera.Follow = _currentNut.transform;
-        _cmBrain.ActiveVirtualCamera.LookAt = _currentNut.transform;
-        _cmBrain.transform.position = _currentNut.transform.position + 2 * Vector3.forward;
+        FocusOnNut();
 
         _isPlaying = true;
         _gameMenu.SetActive(true);
@@ -108,6 +113,7 @@ public class GameManager : MonoBehaviour
         // increment difficulty by 1 point or something
         Destroy(_currentNut.gameObject);
         Destroy(_currentTree.gameObject);
+        Destroy(_currentNutella.gameObject);
         StartGame();
     }
 
@@ -115,7 +121,27 @@ public class GameManager : MonoBehaviour
     {
         Destroy(_currentNut.gameObject);
         Destroy(_currentTree.gameObject);
+        Destroy(_currentNutella.gameObject);
         StartGame();
+    }
+
+    public void FocusOnNut()
+    {
+        _nutCam.Priority = 10;
+        _nutellaCam.Priority = 0;
+        _nutCam.Follow = _currentNut.transform;
+        _nutCam.LookAt = _currentNut.transform;
+        _nutCam.transform.position = _currentNut.transform.position + 2 * Vector3.forward;
+    }
+
+    public void FocusOnNutella()
+    {
+        Transform camFocus = _currentNutella.transform.Find("CamFocus");
+        _nutCam.Priority = 0;
+        _nutellaCam.Priority = 10;
+        _nutellaCam.Follow = camFocus;
+        _nutellaCam.LookAt = camFocus;
+        _nutellaCam.transform.position = camFocus.position + 2 * Vector3.forward;
     }
 
 }
